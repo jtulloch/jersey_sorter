@@ -1,0 +1,8 @@
+{
+  "name": "uniform-sorter",
+  "version": "1.0.0",
+  "dependencies": {
+    "chai": "^2.1.1",
+    "mocha": "^2.1.0"
+  }
+}
