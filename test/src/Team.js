@@ -24,6 +24,28 @@ describe('Team', function() {
         })
     })
 
+    describe('#needsSize', function() {
+        it('should return true if needs size', function() {
+            var team = new Team({ medium_players: 5, jerseys: [{ number: 1 }]});
+
+            assert.equal( team.needsSize( 'm' ), true );
+        })
+
+        it('should return false if size not needed', function() {
+            var team = new Team({ large_players: 5, jerseys: [{ number: 1 }]});
+
+            assert.equal( team.needsSize( 'm' ), false );
+        })
+
+        it('should not need size once size added', function() {
+            var team = new Team({ medium_players: 1 });
+
+            team.addJersey({ number: 11, size: 'm' });
+
+            assert.equal( team.needsSize( 'm' ), false );
+        })
+    })
+
     describe('#getJerseys', function() {
         it('should return jerseys', function() {
             var jersey = { number: 1 };
