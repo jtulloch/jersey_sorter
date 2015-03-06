@@ -1,22 +1,32 @@
 var team = function( attributes ) {
-    this.jerseys = [];
+    this.jerseys = null
 
-    for( var key in attributes ) {
-        this[key] = attributes[key];
+    if( attributes ) {
+        for( var key in attributes ) {
+            this[key] = attributes[key];
+        }
     }
 }
 
 team.prototype.getNumbers = function() {
-    return this.jerseys.map(function( jersey ) {
+    return ( this.jerseys || [] ).map(function( jersey ) {
         return jersey.number;
     })
 }
 
 team.prototype.getJerseys = function() {
+    if( !this.jerseys ) {
+        this.jerseys = [];
+    }
+
     return this.jerseys;
 }
 
 team.prototype.addJersey = function( jersey ) {
+    if( !this.jerseys ) {
+        this.jerseys = [];
+    }
+
     return this.jerseys.push( jersey );
 }
 
