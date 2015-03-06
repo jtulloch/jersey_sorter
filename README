@@ -1,1 +1,5 @@
-Utility for processing a list of uniforms and sorting them into teams with unique numbers on each team.
+Utility for processing a list of jerseys and sorting them into teams with unique numbers on each team.
+
+Problem: 
+    - Given a CSV of 300 jerseys (size, number) numbered from 1-20, with sizes s,m,l, assign 10 jerseys to each of 25 different teams.
+    - Each team has a required number of jerseys per size. ( specified as a csv as follows: teamname, num_small, num_med, num_large ).
