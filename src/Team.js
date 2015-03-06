@@ -31,7 +31,7 @@ team.prototype.addJersey = function( jersey ) {
 }
 
 team.prototype.hasNumber = function( number ) {
-    return this.getNumbers().indexOf( number ) > 0;
+    return this.getNumbers().indexOf( number ) >= 0;
 }
 
 module.exports = team;

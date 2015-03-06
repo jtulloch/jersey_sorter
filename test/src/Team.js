@@ -20,7 +20,7 @@ describe('Team', function() {
             var input_number = 7;
             var team = new Team({ jerseys: [{ number: input_number }]});
 
-            assert.equal( team.hasNumber( input_number ), false );
+            assert.equal( team.hasNumber( input_number ), true );
         })
     })
 
