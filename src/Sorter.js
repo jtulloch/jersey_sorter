@@ -1,19 +1,19 @@
 var Team = require('./Team');
-var _Sorter = function() {};
+var Sorter = function() {};
 
-_Sorter.prototype.withTeams = function(teams) {
+Sorter.prototype.withTeams = function(teams) {
     this.teams = teams.map(function( team ) {
         return new Team(team);
     });
     return this;
 }
 
-_Sorter.prototype.withJerseys = function(jerseys) {
+Sorter.prototype.withJerseys = function(jerseys) {
     this.jerseys = jerseys;
     return this;
 }
 
-_Sorter.prototype.sort = function() {
+Sorter.prototype.sort = function() {
     this.jerseys.forEach(function( jersey ) {
         this.teams.forEach(function( team ) {
             if( !team.hasNumber( jersey.number )) {
@@ -26,4 +26,4 @@ _Sorter.prototype.sort = function() {
 }
 
 
-module.exports = _Sorter;
+module.exports = Sorter;
