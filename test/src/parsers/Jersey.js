@@ -6,7 +6,7 @@ describe('Jersey Parser', function() {
         var input = " 7, m"; // include intentional spaces
         var expected_jerseys = [{ number: 7, size: 'm' }];
 
-        JerseyParser.parse(input,function( jerseys ) {
+        JerseyParser.parse(input,function( err, jerseys ) {
             assert.deepEqual( jerseys, expected_jerseys );
             done();
         });
@@ -23,7 +23,7 @@ describe('Jersey Parser', function() {
             { number: 20, size: 's' }
         ];
 
-        JerseyParser.parse(input,function( jerseys ) {
+        JerseyParser.parse(input,function( err, jerseys ) {
             assert.deepEqual( jerseys, expected_jerseys );
             done();
         });

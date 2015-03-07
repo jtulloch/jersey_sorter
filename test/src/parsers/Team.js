@@ -7,7 +7,7 @@ describe('Team Parser', function() {
         var input = "Geese, 3, 2 , 7"; // include intentional spaces
         var expected_teams = [ new Team({ name: 'Geese', small_players: 3, medium_players: 2, large_players: 7 })];
 
-        TeamParser.parse(input,function( teams ) {
+        TeamParser.parse(input,function( err, teams ) {
             assert.deepEqual( teams, expected_teams );
             done();
         });
@@ -24,7 +24,7 @@ describe('Team Parser', function() {
             new Team({ name: 'Dinosaurs', small_players: 3, medium_players: 2, large_players: 8 })
         ];
 
-        TeamParser.parse(input,function( teams ) {
+        TeamParser.parse(input,function( err, teams ) {
             assert.deepEqual( teams, expected_teams );
             done();
         });
