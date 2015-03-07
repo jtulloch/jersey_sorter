@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "chai": "^2.1.1",
+    "csv-parse": "0.0.9",
     "mocha": "^2.1.0"
   }
 }
