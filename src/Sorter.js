@@ -16,7 +16,7 @@ Sorter.prototype.withJerseys = function(jerseys) {
 Sorter.prototype.sort = function() {
     this.jerseys.forEach(function( jersey ) {
         this.teams.forEach(function( team ) {
-            if( !team.hasNumber( jersey.number )) {
+            if( team.needsSize( jersey.size ) && !team.hasNumber( jersey.number )) {
                 team.addJersey( jersey );
             }
         });

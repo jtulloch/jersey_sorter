@@ -4,8 +4,8 @@ var Sorter = require("../../src/Sorter");
 describe('Sorter', function() {
     it('should add single jersey to single team', function() {
         var number = 3;
-        var teams = [{'name': 'Hounds'}];
-        var jerseys = [{'number': number }];
+        var teams = [{ 'name': 'Hounds', 'medium_players': 1 }];
+        var jerseys = [{ 'number': number, 'size': 'm' }];
 
         var sorted_teams = new Sorter()
             .withJerseys(jerseys)
@@ -17,9 +17,9 @@ describe('Sorter', function() {
 
     it('should add multiple jerseys to single team', function() {
         var numbers = [3,11,47,1134];
-        var teams = [{'name': 'Hounds'}];
+        var teams = [{ 'name': 'Hounds', 'medium_players': 4 }];
         var jerseys = numbers.map(function( number ) {
-            return {'number': number };
+            return {'number': number, 'size': 'm' };
         });
 
         var sorted_teams = new Sorter()
@@ -34,11 +34,11 @@ describe('Sorter', function() {
         var numbers = [3,11,3,20];
         var unique_numbers = [3,11,20];
         var teams = [
-            {'name': 'Hounds'}
+            { 'name': 'Hounds', 'medium_players': 3 }
         ];
 
         var jerseys = numbers.map(function( number ) {
-            return {'number': number };
+            return {'number': number, 'size': 'm' };
         });
 
         var sorted_teams = new Sorter()
@@ -53,12 +53,12 @@ describe('Sorter', function() {
         var numbers = [3,11,3,11];
         var unique_numbers = [3,11];
         var teams = [
-            {'name': 'Hounds'},
-            {'name': 'Dinosaurs'}
+            { 'name': 'Hounds', 'medium_players': 2 },
+            { 'name': 'Dinosaurs', 'medium_players': 2 }
         ];
 
         var jerseys = numbers.map(function( number ) {
-            return {'number': number };
+            return {'number': number, 'size': 'm' };
         });
 
         var sorted_teams = new Sorter()
@@ -68,5 +68,18 @@ describe('Sorter', function() {
 
         assert.deepEqual( sorted_teams[0].getNumbers(), unique_numbers );
         assert.deepEqual( sorted_teams[1].getNumbers(), unique_numbers );
+    })
+
+    it('should not add jersey if size not needed', function() {
+        var number = 4;
+        var teams = [{ 'name': 'Hounds', 'medium_players': 0 }];
+        var jerseys = [{ 'number': number, 'size': 'm' }];
+
+        var sorted_teams = new Sorter()
+            .withJerseys(jerseys)
+            .withTeams(teams)
+            .sort();
+
+        assert.notDeepEqual( sorted_teams[0].getNumbers(), [ number ]);
     })
 });
