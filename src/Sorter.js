@@ -1,10 +1,7 @@
-var Team = require('./Team');
 var Sorter = function() {};
 
 Sorter.prototype.withTeams = function(teams) {
-    this.teams = teams.map(function( team ) {
-        return new Team(team);
-    });
+    this.teams = teams;
     return this;
 }
 
