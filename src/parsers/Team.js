@@ -1,7 +1,8 @@
 var parse = require('csv-parse');
 var Team = require('../Team');
 
-var parser_options = { columns: true, ltrim: true, rtrim: true };
+var columns = ['name','small_players','medium_players','large_players'];
+var parser_options = { 'columns': columns, 'ltrim': true, 'rtrim': true };
 
 module.exports = {
     parse: function( input, callback ) {
