@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+var program = require('commander');
+
+var CSVFileSorter = require('../src/CSVFileSorter');
+var ConsoleOutput = require('../src/util/ConsoleOutput');
+var StringFormatter = require('../src/util/TeamStringFormatter');
+
+program
+    .version('1.0.0')
+    .option('-j, --jerseys <filename.csv>', 'File containing jersey numbers')
+    .option('-t, --teams <filename.csv>', 'File containing team names + required jerseys')
+    .parse(process.argv);
+
+if( !program.teams ) {
+    throw new Error('--teams is a required parameter. Please specify a file.');
+}
+
+if( !program.jerseys ) {
+    throw new Error('--jerseys is a required option. Please specify a file.');
+}
+
+var output = new ConsoleOutput(StringFormatter);
+var sorter = new CSVFileSorter()
+    .jerseys(program.jerseys)
+    .teams(program.teams)
+    .callback(function(err,result) {
+        output.send(result);
+    })
+    .sort();
