@@ -7,5 +7,9 @@
     "mocha": "^2.1.0",
     "rsvp": "^3.0.17",
     "simple-mock": "^0.2.8"
+  },
+  "scripts": {
+      "test": "mocha --recursive --reporter nyan test/src",
+      "test:watch": "mocha --recursive --reporter nyan -w test/src"
   }
 }

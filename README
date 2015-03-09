@@ -6,8 +6,9 @@ Problem:
 
 Tests:
     run `npm install` (or `make install`) to install dependencies
-    run `make test` to run tests
+    run `npm test` (or `make test`) to run tests
+    run `npm run test:watch` to watch test directory and run when necessary
 
 Usage:
     run `npm install` (or `make install`) to install dependencies
-    run `./bin/jersey-sorter --help` for details of options
+    run `./bin/jersey-sorter --help` for details of command line options
