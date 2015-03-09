@@ -23,8 +23,8 @@ describe('CSVFileSorter', function() {
         var jerseys = 'test/data/ten_jerseys.csv'; // requires tests to be run from project root
         var teams = 'test/data/two_teams.csv'; // requires tests to be run from project root
 
-        var expected_first_team = [1,2,3,4,5];
-        var expected_second_team = [1,2,3,5,4];
+        var expected_first_team = [1,2,3,4,6];
+        var expected_second_team = [5,7,8,9,10];
 
         var sorter = new CSVFileSorter()
             .jerseys(jerseys)
