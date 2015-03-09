@@ -2,7 +2,7 @@ var _ = require("lodash");
 
 var Sorter = require("./Sorter");
 
-var FileLoader = require("./FileLoader");
+var FileLoader = require("./util/FileLoader");
 var JerseyParser = require("./parsers/csv/Jersey");
 var TeamParser = require("./parsers/csv/Team");
 

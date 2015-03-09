@@ -1,8 +1,8 @@
 var assert = require("assert");
-var FileLoader = require("../../src/FileLoader");
-var JerseyParser = require("../../src/parsers/csv/Jersey");
-var TeamParser = require("../../src/parsers/csv/Team");
-var Team = require("../../src/Team");
+var FileLoader = require("../../../src/util/FileLoader");
+var JerseyParser = require("../../../src/parsers/csv/Jersey");
+var TeamParser = require("../../../src/parsers/csv/Team");
+var Team = require("../../../src/Team");
 
 describe('FileLoader', function() {
     it('should return content when no callback provided', function() {
