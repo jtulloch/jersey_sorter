@@ -12,9 +12,9 @@ module.exports = {
                 }
 
                 if( parser ) {
-                    parser.parse(results, function(err, parsed) {
-                        resolve( parsed );
-                    });
+                    parser
+                        .parse(results)
+                        .then(resolve);
                 } else {
                     resolve( results );
                 }
