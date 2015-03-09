@@ -4,7 +4,6 @@
   "dependencies": {
     "commander": "^2.6.0",
     "csv-parse": "0.0.9",
-    "lodash": "^3.4.0",
     "mocha": "^2.1.0",
     "rsvp": "^3.0.17",
     "simple-mock": "^0.2.8"
