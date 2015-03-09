@@ -2,13 +2,6 @@ var assert = require("assert")
 var Team = require("../../src/Team")
 
 describe('Team', function() {
-    it('should mixin passed parameters', function() {
-        var params = { fish: 11 };
-        var team = new Team( params );
-
-        assert.equal( params.fish, team.fish );
-    })
-
     describe('#hasNumber', function() {
         it('should return false if has jersey number', function() {
             var team = new Team({ jerseys: [{ number: 1 }]});
