@@ -1,35 +1,25 @@
-var Sorter = function() {};
+var RSVP = require('rsvp');
 
-Sorter.prototype.withTeams = function(teams) {
-    this.teams = teams;
-    return this;
+module.exports = {
+    sort: function(input) {
+        var teams = input.teams;
+        var jerseys = input.jerseys;
+
+        return new RSVP.Promise(function(resolve, reject) {
+            jerseys.forEach(function( jersey ) {
+                var length = teams.length;
+
+                for (var i = 0; i < length; i++) {
+                    var team = teams[i];
+
+                    if( team.needsSize( jersey.size ) && !team.hasNumber( jersey.number )) {
+                        team.addJersey( jersey );
+                        break;
+                    }
+                };
+            });
+
+            resolve(teams);
+        });
+    }
 };
-
-Sorter.prototype.withJerseys = function(jerseys) {
-    this.jerseys = jerseys;
-    return this;
-};
-
-Sorter.prototype.addToTeam = function( jersey ) {
-    var length = this.teams.length;
-
-    for (var i = 0; i < length; i++) {
-        var team = this.teams[i];
-
-        if( team.needsSize( jersey.size ) && !team.hasNumber( jersey.number )) {
-            team.addJersey( jersey );
-            break;
-        }
-    };
-};
-
-Sorter.prototype.sort = function() {
-    this.jerseys.forEach(function( jersey ) {
-        this.addToTeam( jersey );
-    }, this );
-
-    return this.teams;
-};
-
-
-module.exports = Sorter;
