@@ -1,5 +1,5 @@
 var assert = require("assert");
-var JerseyParser = require("../../../src/parsers/Jersey");
+var JerseyParser = require("../../../../src/parsers/csv/Jersey");
 
 describe('Jersey Parser', function() {
     it('should return single jersey from single row', function( done ) {

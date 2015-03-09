@@ -1,8 +1,8 @@
 var assert = require("assert");
-var TeamParser = require("../../../src/parsers/Team");
-var Team = require("../../../src/Team");
+var TeamParser = require("../../../../src/parsers/csv/Team");
+var Team = require("../../../../src/Team");
 
-describe('Team Parser', function() {
+describe('TeamParser', function() {
     it('should return single team from single row', function( done ) {
         var input = "Geese, 3, 2 , 7"; // include intentional spaces
         var expected_teams = [ new Team({ name: 'Geese', small_players: 3, medium_players: 2, large_players: 7 })];

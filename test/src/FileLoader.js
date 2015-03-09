@@ -1,7 +1,7 @@
 var assert = require("assert");
 var FileLoader = require("../../src/FileLoader");
-var JerseyParser = require("../../src/parsers/Jersey");
-var TeamParser = require("../../src/parsers/Team");
+var JerseyParser = require("../../src/parsers/csv/Jersey");
+var TeamParser = require("../../src/parsers/csv/Team");
 var Team = require("../../src/Team");
 
 describe('FileLoader', function() {
