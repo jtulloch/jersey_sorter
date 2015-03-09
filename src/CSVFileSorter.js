@@ -50,13 +50,8 @@ sorter.prototype.callback = function(callback) {
 };
 
 sorter.prototype.sort = function() {
-    FileLoader
-        .withParser(TeamParser)
-        .load(this.teams,_.bind(this._teamsLoaded,this));
-
-    FileLoader
-        .withParser(JerseyParser)
-        .load(this.jerseys,_.bind(this._jerseysLoaded,this));
+    FileLoader.load( this.teams, _.bind( this._teamsLoaded, this ), TeamParser );
+    FileLoader.load( this.jerseys, _.bind( this._jerseysLoaded, this ), JerseyParser );
 };
 
 module.exports = sorter;

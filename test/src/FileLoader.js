@@ -28,12 +28,12 @@ describe('FileLoader', function() {
         var filename = 'test/data/one_jersey.csv'; // requires tests to be run from project root
         var expected_output = [{number:7,size:'m'}];
 
-        FileLoader
-            .withParser(JerseyParser)
-            .load(filename,function(err,output) {
-                assert.deepEqual(output,expected_output);
-                done();
-            });
+        var callback = function(err,output) {
+            assert.deepEqual(output,expected_output);
+            done();
+        }
+
+        FileLoader.load(filename,callback,JerseyParser);
     });
 
     it('should parse different input when different parser provided', function(done) {
@@ -44,26 +44,25 @@ describe('FileLoader', function() {
         var expected_teams = [new Team({ name: 'Geese', small_players: 3, medium_players: 5, large_players: 7 })];
 
         var first_call = false;
+        var jerseys_callback = function(err,output) {
+            assert.deepEqual(output,expected_jerseys);
 
-        FileLoader
-            .withParser(JerseyParser)
-            .load(jerseys_filename,function(err,output) {
-                assert.deepEqual(output,expected_jerseys);
+            if( first_call ) {
+                done();
+            }
+            first_call = true;
+        };
 
-                if( first_call ) {
-                    done();
-                }
-                first_call = true;
-            });
+        var teams_callback = function(err,output) {
+            assert.deepEqual(output,expected_teams);
 
-        FileLoader
-            .withParser(TeamParser)
-            .load(teams_filename,function(err,output) {
-                assert.deepEqual(output,expected_teams);
-                if( first_call ) {
-                    done();
-                }
-                first_call = true;
-            });
+            if( first_call ) {
+                done();
+            }
+            first_call = true;
+        };
+
+        FileLoader.load(jerseys_filename,jerseys_callback,JerseyParser);
+        FileLoader.load(teams_filename,teams_callback,TeamParser);
     });
 });

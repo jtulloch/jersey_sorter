@@ -1,8 +1,7 @@
 var assert = require("assert");
 var CSVFileSorter = require("../../src/CSVFileSorter");
-var TeamFactory = require('../factories/Team');
 
-describe('Sorter', function() {
+describe('CSVFileSorter', function() {
     it('should add single jersey to single team', function(done) {
         var jerseys = 'test/data/one_jersey.csv'; // requires tests to be run from project root
         var teams = 'test/data/one_team.csv'; // requires tests to be run from project root

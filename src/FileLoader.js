@@ -1,33 +1,23 @@
 var fs = require('fs');
 var options = { encoding: 'utf8' };
 
-var parser = null;
-
-var wrapCallback = function(callback,_parser) {
-    if( !_parser ) {
+function getCallback(callback,parser) {
+    if( !parser ) {
         return callback;
     }
 
     return function(err,data) {
-        _parser.parse(data,callback);
+        parser.parse(data,callback);
     };
-};
+}
 
-var reset = function() {
-    parser = null;
-};
-
-module.exports = loader = {
-    withParser: function(_parser) {
-        parser = _parser;
-        return loader;
-    },
-    load: function(file_name,callback) {
+module.exports = {
+    load: function(file_name,callback,parser) {
         if(callback) {
-            fs.readFile(file_name, options, wrapCallback(callback,parser))
-            reset();
+            fs.readFile( file_name, options, getCallback( callback, parser ));
             return;
         }
-        return fs.readFileSync(file_name, options);
+        return fs.readFileSync( file_name, options );
     }
 };
+
