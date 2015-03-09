@@ -1,23 +1,25 @@
 var fs = require('fs');
+var RSVP = require('rsvp');
+
 var options = { encoding: 'utf8' };
 
-function getCallback(callback,parser) {
-    if( !parser ) {
-        return callback;
-    }
-
-    return function(err,data) {
-        parser.parse(data,callback);
-    };
-}
-
 module.exports = {
-    load: function(file_name,callback,parser) {
-        if(callback) {
-            fs.readFile( file_name, options, getCallback( callback, parser ));
-            return;
-        }
-        return fs.readFileSync( file_name, options );
+    load: function(file_name, parser) {
+        return new RSVP.Promise(function(resolve, reject) {
+            fs.readFile(file_name, options, function(err,results) {
+                if( err ) {
+                    reject(err);
+                }
+
+                if( parser ) {
+                    parser.parse(results, function(err, parsed) {
+                        resolve( parsed );
+                    });
+                } else {
+                    resolve( results );
+                }
+            });
+        });
     }
 };
 

@@ -1,4 +1,5 @@
 var _ = require("lodash");
+var RSVP = require("rsvp");
 
 var Sorter = require("./Sorter");
 
@@ -7,33 +8,16 @@ var JerseyParser = require("./parsers/csv/Jersey");
 var TeamParser = require("./parsers/csv/Team");
 
 function CSVFileInputSorter() {
-    this._ready = false;
     this._sorter = new Sorter();
 };
 
-CSVFileInputSorter.prototype._performSort = function() {
-    var results = this._sorter.sort();
+CSVFileInputSorter.prototype._loaded = function( results ) {
+    var results = this._sorter
+        .withJerseys(results.jerseys)
+        .withTeams(results.teams)
+        .sort();
+
     this.callback(null,results);
-};
-
-CSVFileInputSorter.prototype._jerseysLoaded = function( err, jerseys ) {
-    this._sorter.withJerseys(jerseys);
-
-    if( this._ready ) {
-        this._performSort();
-    }
-
-    this._ready = true;
-};
-
-CSVFileInputSorter.prototype._teamsLoaded = function( err, teams ) {
-    this._sorter.withTeams(teams);
-
-    if( this._ready ) {
-        this._performSort();
-    }
-
-    this._ready = true;
 };
 
 CSVFileInputSorter.prototype.jerseys = function(jerseys) {
@@ -52,8 +36,12 @@ CSVFileInputSorter.prototype.callback = function(callback) {
 };
 
 CSVFileInputSorter.prototype.sort = function() {
-    FileLoader.load( this.teams, _.bind( this._teamsLoaded, this ), TeamParser );
-    FileLoader.load( this.jerseys, _.bind( this._jerseysLoaded, this ), JerseyParser );
+    RSVP
+        .hash({
+            teams: FileLoader.load(this.teams, TeamParser),
+            jerseys: FileLoader.load(this.jerseys, JerseyParser)
+        })
+        .then(_.bind( this._loaded, this ));
 };
 
 module.exports = CSVFileInputSorter;
