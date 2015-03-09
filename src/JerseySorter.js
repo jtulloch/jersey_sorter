@@ -1,20 +1,22 @@
-var FileLoader = require("./FileLoader");
-var Sorter = require("./Sorter");
-var JerseyParser = require("./parsers/csv/Jersey");
-var TeamParser = require("./parsers/csv/Team");
 var _ = require("lodash");
 
-var sorter = function() {
+var Sorter = require("./Sorter");
+
+var FileLoader = require("./FileLoader");
+var JerseyParser = require("./parsers/csv/Jersey");
+var TeamParser = require("./parsers/csv/Team");
+
+function CSVFileInputSorter() {
     this._ready = false;
     this._sorter = new Sorter();
 };
 
-sorter.prototype._performSort = function() {
+CSVFileInputSorter.prototype._performSort = function() {
     var results = this._sorter.sort();
     this.callback(null,results);
 };
 
-sorter.prototype._jerseysLoaded = function( err, jerseys ) {
+CSVFileInputSorter.prototype._jerseysLoaded = function( err, jerseys ) {
     this._sorter.withJerseys(jerseys);
 
     if( this._ready ) {
@@ -24,7 +26,7 @@ sorter.prototype._jerseysLoaded = function( err, jerseys ) {
     this._ready = true;
 };
 
-sorter.prototype._teamsLoaded = function( err, teams ) {
+CSVFileInputSorter.prototype._teamsLoaded = function( err, teams ) {
     this._sorter.withTeams(teams);
 
     if( this._ready ) {
@@ -34,25 +36,29 @@ sorter.prototype._teamsLoaded = function( err, teams ) {
     this._ready = true;
 };
 
-sorter.prototype.jerseys = function(jerseys) {
+CSVFileInputSorter.prototype.jerseys = function(jerseys) {
     this.jerseys = jerseys;
     return this;
 };
 
-sorter.prototype.teams = function(teams) {
+CSVFileInputSorter.prototype.teams = function(teams) {
     this.teams = teams;
     return this;
 };
 
-sorter.prototype.callback = function(callback) {
+CSVFileInputSorter.prototype.callback = function(callback) {
     this.callback = callback;
     return this;
 };
 
-sorter.prototype.sort = function() {
+CSVFileInputSorter.prototype.sort = function() {
     FileLoader.load( this.teams, _.bind( this._teamsLoaded, this ), TeamParser );
     FileLoader.load( this.jerseys, _.bind( this._jerseysLoaded, this ), JerseyParser );
 };
 
-module.exports = sorter;
+module.exports = {
+    CSVFileInput: function() {
+        return new CSVFileInputSorter();
+    }
+}
 
