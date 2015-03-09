@@ -3,7 +3,7 @@
 var fs = require('fs');
 var program = require('commander');
 
-var JerseySorter = require('../src/JerseySorter');
+var CSVFileInputSorter = require('../src/CSVFileInputSorter');
 var ConsoleOutput = require('../src/util/ConsoleOutput');
 var StringFormatter = require('../src/util/TeamStringFormatter');
 
@@ -22,8 +22,7 @@ if( !program.jerseys ) {
 }
 
 var output = new ConsoleOutput(StringFormatter);
-var sorter = JerseySorter
-    .CSVFileInput()
+var sorter = new CSVFileInputSorter()
     .jerseys(program.jerseys)
     .teams(program.teams)
     .callback(function(err,result) {

@@ -56,9 +56,5 @@ CSVFileInputSorter.prototype.sort = function() {
     FileLoader.load( this.jerseys, _.bind( this._jerseysLoaded, this ), JerseyParser );
 };
 
-module.exports = {
-    CSVFileInput: function() {
-        return new CSVFileInputSorter();
-    }
-}
+module.exports = CSVFileInputSorter;
 
